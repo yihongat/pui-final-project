@@ -1,9 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: "Inter", sans-serif;
+  letter-spacing: -0.05em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 100px;
+}
+
+h2 {
+  font-size: 72px;
+}
+
+h4 {
+  font-size: 30px;
+}
+
+p {
+  font-size: 20px;
 }
 
 a {
@@ -15,12 +45,50 @@ a {
   box-sizing: border-box;
 }
 
+.fadein {
+  -webkit-animation: fadein 0.3s ease forwards;
+  animation: fadein 0.3s ease forwards;
+}
+.fadeout {
+  -webkit-animation: fadeout 0.2s ease forwards;
+  animation: fadeout 0.2s ease forwards;
+}
+
+@-webkit-keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
 }

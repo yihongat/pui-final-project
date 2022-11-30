@@ -1,8 +1,18 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import "../styles/globals.css";
+import type { AppProps } from "next/app";
+import { DataWrapper } from "../components/common/DataContext/DataContext";
+import { AnimatePresence } from "framer-motion";
+import { useRouter } from "next/router";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  const router = useRouter();
+  return (
+    <DataWrapper>
+      <AnimatePresence exitBeforeEnter>
+        <Component {...pageProps} key={router.pathname} />
+      </AnimatePresence>
+    </DataWrapper>
+  );
 }
 
-export default MyApp
+export default MyApp;
