@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
   return (
     <DataWrapper>
-      <AnimatePresence exitBeforeEnter>
+      <AnimatePresence mode="wait">
         <Component {...pageProps} key={router.pathname} />
       </AnimatePresence>
     </DataWrapper>

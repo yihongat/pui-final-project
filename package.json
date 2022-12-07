@@ -12,10 +12,14 @@
     "classnames": "^2.3.2",
     "d3": "^7.6.1",
     "framer-motion": "^7.6.9",
+    "html-to-image": "^1.10.10",
     "lodash": "^4.17.21",
     "next": "12.3.1",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-animated-number": "^0.4.4",
+    "react-dom": "18.2.0",
+    "satori": "^0.0.44",
+    "vercel": "^28.6.0"
   },
   "devDependencies": {
     "@types/d3": "^7.4.0",

@@ -1,21 +1,39 @@
 import classNames from "classnames";
-import { HTMLProps, useCallback, useState } from "react";
+import { HTMLProps, useCallback, useRef, useState } from "react";
 import _ from "lodash";
+
+interface PerspectiveProps extends HTMLProps<HTMLDivElement> {
+  reduceEffect?: number;
+}
 
 export const Perspective = ({
   children,
+  reduceEffect = 50,
   ...props
-}: HTMLProps<HTMLDivElement>) => {
+}: PerspectiveProps) => {
+  const perspectiveRef = useRef<HTMLDivElement>(null);
   const [mousePosition, setMousePosition] = useState<[number, number]>([0, 0]);
 
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    _.throttle((e: React.MouseEvent<HTMLDivElement>) => {
-      setMousePosition([
-        (window.innerWidth / 2 - e.clientX) / 50,
-        (window.innerHeight / 2 - e.clientY) / 50,
-      ]);
-    }, 16)(e);
-  }, []);
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      _.throttle((e: React.MouseEvent<HTMLDivElement>) => {
+        const boundingBox = perspectiveRef?.current?.getBoundingClientRect();
+        setMousePosition([
+          (e.clientX -
+            (boundingBox
+              ? boundingBox.left + boundingBox.width / 2
+              : window.innerWidth / 2)) /
+            reduceEffect,
+          (e.clientY -
+            (boundingBox
+              ? boundingBox.top + boundingBox.height / 2
+              : window.innerHeight / 2)) /
+            reduceEffect,
+        ]);
+      }, 16)(e);
+    },
+    [reduceEffect]
+  );
 
   return (
     <div
@@ -24,6 +42,7 @@ export const Perspective = ({
         "relative flex justify-center items-center",
         props.className
       )}
+      ref={perspectiveRef}
       style={{ perspective: "1000px", transition: "all 0.75s ease-out" }}
       onMouseMove={(e) => handleMouseMove(e)}
     >

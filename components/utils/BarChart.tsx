@@ -3,8 +3,8 @@ import * as d3 from "d3";
 export const BarChart = (
   data: any,
   {
-    x = (d, i) => i, // given d in data, returns the (ordinal) x-value
-    y = (d) => d, // given d in data, returns the (quantitative) y-value
+    x = (_: any, i: any) => i, // given d in data, returns the (ordinal) x-value
+    y = (d: any) => d, // given d in data, returns the (quantitative) y-value
     title, // given d in data, returns the title text
     marginTop = 20, // the top margin, in pixels
     marginRight = 0, // the right margin, in pixels
@@ -21,7 +21,11 @@ export const BarChart = (
     yFormat, // a format specifier string for the y-axis
     yLabel, // a label for the y-axis
     color = "currentColor", // bar fill color
-  } = {}
+    hoverColor = "currentColor",
+    tickSize = 1,
+    borderRadius = 0,
+    removeXLine = false,
+  }: any
 ) => {
   // Compute values.
   const X = d3.map(data, x);
@@ -29,7 +33,7 @@ export const BarChart = (
 
   // Compute default domains, and unique the x-domain.
   if (xDomain === undefined) xDomain = X;
-  if (yDomain === undefined) yDomain = [0, d3.max(Y)];
+  if (yDomain === undefined) yDomain = [0, d3.max(Y as any)];
   xDomain = new d3.InternSet(xDomain);
 
   // Omit any data not present in the x-domain.
@@ -38,17 +42,24 @@ export const BarChart = (
   // Construct scales, axes, and formats.
   const xScale = d3.scaleBand(xDomain, xRange).padding(xPadding);
   const yScale = yType(yDomain, yRange);
-  const xAxis = d3.axisBottom(xScale).tickSizeOuter(0);
-  const yAxis = d3.axisLeft(yScale).ticks(height / 40, yFormat);
+  const xAxis = d3
+    .axisBottom(xScale as any)
+    .tickSizeOuter(0)
+    .tickSize(tickSize)
+    .tickPadding(10);
+  const yAxis = d3
+    .axisLeft(yScale)
+    .ticks(height / 40, yFormat)
+    .tickSize(tickSize);
 
   // Compute titles.
   if (title === undefined) {
     const formatValue = yScale.tickFormat(100, yFormat);
-    title = (i) => `${X[i]}\n${formatValue(Y[i])}`;
+    title = (i: any) => `${X[i]}\n${formatValue(Y[i])}`;
   } else {
     const O = d3.map(data, (d) => d);
     const T = title;
-    title = (i) => T(O[i], i, data);
+    title = (i: any) => T(O[i], i, data);
   }
 
   const svg = d3
@@ -85,18 +96,71 @@ export const BarChart = (
     .attr("fill", color)
     .selectAll("rect")
     .data(I)
-    .join("rect")
-    .attr("x", (i) => xScale(X[i]))
+    .join((enter) =>
+      enter
+        .append("rect")
+        .attr("x", (i) => xScale(X[i] as any) as any)
+        .attr("y", () => yScale(0))
+        .attr("rx", borderRadius)
+        .call((enter) =>
+          enter.attr("height", 0).attr("width", xScale.bandwidth())
+        )
+    );
+
+  bar
+    .transition()
+    .duration(2000)
     .attr("y", (i) => yScale(Y[i]))
     .attr("height", (i) => yScale(0) - yScale(Y[i]))
-    .attr("width", xScale.bandwidth());
+    .delay(function (_, i) {
+      return i * 100;
+    });
 
-  if (title) bar.append("title").text(title);
+  let tooltip: any = null;
+
+  bar
+    .on("mouseover", function (event, i) {
+      d3.selectAll(".d3-tooltip-bar").remove();
+      tooltip = d3
+        .select("body")
+        .append("div")
+        .attr("class", "d3-tooltip-bar")
+        .style("position", "absolute")
+        .style("top", "0")
+        .style("z-index", "10")
+        .style("visibility", "hidden")
+        .style("padding", "5px 10px")
+        .style("background", "rgba(0,0,0,0.7)")
+        .style("border-radius", "4px")
+        .style("border", "0px solid #909090")
+        .style("font-size", "14px")
+        .style("width", "140px")
+        .style("color", "#EEF2F3")
+        .text("Tooltip");
+      tooltip
+        .html(
+          `<div style="font-weight: 500">${X[i]}</div><div>${
+            Math.round((Y[i] as number) * 10) / 10
+          } videos per day</div>`
+        )
+        .style("visibility", "visible");
+      d3.select(this).transition().attr("fill", hoverColor);
+    })
+    .on("mousemove", function (event: any) {
+      tooltip
+        .style("top", event.pageY - 10 + "px")
+        .style("left", event.pageX + 10 + "px");
+    })
+    .on("mouseout", function () {
+      tooltip.html(``).style("visibility", "hidden");
+      d3.select(this).transition().attr("fill", color);
+    });
 
   svg
     .append("g")
     .attr("transform", `translate(0,${height - marginBottom})`)
-    .call(xAxis);
+    .call(xAxis)
+    .call((g) => g.select(removeXLine ? ".domain" : ".noRemove").remove());
 
   return svg.node();
 };

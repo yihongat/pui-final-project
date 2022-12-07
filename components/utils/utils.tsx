@@ -318,3 +318,11 @@ export const getNameFromTimeOfDay = (n: number) => {
     return "night";
   }
 };
+
+export const scaleImageHeight = (newWidth: number, imageObj: any) => {
+  return (newWidth * imageObj.height) / imageObj.width;
+};
+
+export const scaleImageWidth = (newHeight: number, imageObj: any) => {
+  return (newHeight * imageObj.width) / imageObj.height;
+};

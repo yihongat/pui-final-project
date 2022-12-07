@@ -14,9 +14,13 @@ const FileInput = ({ onChange, ...props }: HTMLProps<HTMLInputElement>) => {
       >
         Upload Watch History
       </Button>
+      <label htmlFor="fileUpload" className="hidden">
+        Upload Watch History
+      </label>
       <input
         type="file"
         ref={inputRef}
+        id="fileUpload"
         onChange={onChange}
         className="hidden"
       />

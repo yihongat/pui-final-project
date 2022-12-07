@@ -3,7 +3,6 @@ import { Button } from "../common/Button";
 import { Perspective } from "../common/Perspective";
 import YearInReviewLogo from "../../public/images/year_in_review_wordmark.svg";
 import classNames from "classnames";
-import { useState } from "react";
 import { PageTransition } from "../common/PageTransition/PageTransition";
 
 const Landing = () => {
@@ -15,10 +14,14 @@ const Landing = () => {
     >
       <Perspective className="flex-col w-full h-full">
         <PageTransition
-          className="relative w-8/12 h-48 mb-10 max-w-[1000px]"
+          className="relative w-10/12 lg:w-8/12 h-24 md:h-36 mb-6 max-w-[800px]"
           delay={1.5}
         >
-          <Image src={YearInReviewLogo} alt="" layout="fill" />
+          <Image
+            src={YearInReviewLogo}
+            alt="Logo for the application that is a circular shape with a smaller whole punched out with Year In Review in text on the right of it. "
+            layout="fill"
+          />
         </PageTransition>
 
         <PageTransition delay={1.8}>

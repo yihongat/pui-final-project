@@ -13,24 +13,28 @@ const MonthlyStats = () => {
 
   useEffect(() => {
     const c = BarChart(getVideosWatchedByMonth(watchHistory), {
-      x: (d) => d.month,
-      y: (d) => d.videoCount,
+      x: (d: any) => d.month,
+      y: (d: any) => d.videoCount,
       color: "#D74040",
-      height: 360,
+      hoverColor: "#D74040",
+      height: 320,
+      tickSize: 0,
+      borderRadius: 5,
+      removeXLine: true,
     });
-    monthBarChart.current?.replaceChildren(c);
+    monthBarChart.current?.replaceChildren(c as Node);
   }, [watchHistory]);
 
   return (
     <>
       <main
         className={classNames(
-          "w-full flex flex-col justify-center items-center pb-8 pt-8"
+          "w-full flex flex-col justify-center items-center pb-12 lg:pb-8 pt-2"
         )}
       >
-        <div className="w-full max-w-[1000px] flex flex-col items-center">
+        <div className="w-10/12 max-w-[1000px] flex flex-col items-center">
           <PageTransition delay={2}>
-            <h1 className="text-primaryGrey">
+            <h1 className="text-primaryGrey text-5xl md:text-[92px]">
               You watched the most videos in{" "}
               <span className="inline text-black mr-6">{`${getHighestKey(
                 getVideosWatchedByMonth(watchHistory),
@@ -39,7 +43,7 @@ const MonthlyStats = () => {
               )}.`}</span>
             </h1>
           </PageTransition>
-          <PageTransition delay={1}>
+          <PageTransition delay={0} mobileOnly>
             <div className="mt-4 tracking-normal" ref={monthBarChart}></div>
           </PageTransition>
           <PageTransition delay={3.5}>
@@ -47,12 +51,16 @@ const MonthlyStats = () => {
           </PageTransition>
         </div>
       </main>
-      <div className="-z-50 absolute w-full top-0 h-full overflow-hidden">
+      <div className="-z-50 absolute w-full top-0 h-full overflow-hidden opacity-80 hidden lg:block">
         <PageTransition
           delay={0.4}
           className="bottom-[-20%] right-[2%] absolute w-[55vh] h-[55vh]"
         >
-          <Image src={SHAPES.PlayShape} alt="" layout="fill" />
+          <Image
+            src={SHAPES.PlayShape}
+            alt="Red tinted clay shapes on background as decoration"
+            layout="fill"
+          />
         </PageTransition>
       </div>
     </>

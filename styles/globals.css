@@ -21,19 +21,19 @@ h5 {
 }
 
 h1 {
-  font-size: 100px;
+  font-size: 64px;
 }
 
 h2 {
-  font-size: 72px;
+  font-size: 48px;
 }
 
 h4 {
-  font-size: 30px;
+  font-size: 20px;
 }
 
 p {
-  font-size: 20px;
+  font-size: 16px;
 }
 
 a {
@@ -52,6 +52,24 @@ a {
 .fadeout {
   -webkit-animation: fadeout 0.2s ease forwards;
   animation: fadeout 0.2s ease forwards;
+}
+
+@media (min-width: 768px) {
+  h1 {
+    font-size: 92px;
+  }
+
+  h2 {
+    font-size: 72px;
+  }
+
+  h4 {
+    font-size: 30px;
+  }
+
+  p {
+    font-size: 18px;
+  }
 }
 
 @-webkit-keyframes fadein {

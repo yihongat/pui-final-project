@@ -5,32 +5,32 @@ import * as d3 from "d3";
 export function Calendar(
   data: any,
   {
-    x = ([x]) => x, // given d in data, returns the (temporal) x-value
-    y = ([, y]) => y, // given d in data, returns the (quantitative) y-value
+    x = ([x]:any) => x, // given d in data, returns the (temporal) x-value
+    y = ([, y]:any) => y, // given d in data, returns the (quantitative) y-value
     title, // given d in data, returns the title text
     width = 928, // width of the chart, in pixels
     cellSize = 17, // width and height of an individual day, in pixels
     weekday = "monday", // either: weekday, sunday, or monday
-    formatDay = (i) => "SMTWTFS"[i], // given a day number in [0, 6], the day-of-week label
+    formatDay = (i:number) => "SMTWTFS"[i], // given a day number in [0, 6], the day-of-week label
     formatMonth = "%b", // format specifier string for months (above the chart)
     yFormat, // format specifier string for values (in the title)
     colors = d3.interpolateReds,
-  } = {}
+  }:any
 ) {
   // Compute values.
-  const X = d3.map(data, x);
-  const Y = d3.map(data, y);
+  const X = d3.map(data, x) as any;
+  const Y = d3.map(data, y) as any;
   const I = d3.range(X.length);
 
-  const countDay = weekday === "sunday" ? (i) => i : (i) => (i + 6) % 7;
+  const countDay = weekday === "sunday" ? (i:number) => i : (i:number) => (i + 6) % 7;
   const timeWeek = weekday === "sunday" ? d3.utcSunday : d3.utcMonday;
   const weekDays = weekday === "weekday" ? 5 : 7;
   const height = cellSize * (weekDays + 2);
 
   // Compute a color scale. This assumes a diverging color scheme where the pivot
   // is zero, and we want symmetric difference around zero.
-  const max = d3.quantile(Y, 0.9975, Math.abs);
-  const color = d3.scaleSequential([0, +max], colors).unknown("#EEF2F3");
+  const max = d3.quantile(Y as any, 0.9975, Math.abs) as any;
+  const color = d3.scaleSequential([0, +max], colors).unknown("#EEF2F3") as any;
 
   // Construct formats.
   formatMonth = d3.utcFormat(formatMonth);
@@ -39,17 +39,17 @@ export function Calendar(
   if (title === undefined) {
     const formatDate = d3.utcFormat("%B %-d, %Y");
     const formatValue = color.tickFormat(100, yFormat);
-    title = (i) => `${formatDate(X[i])}\n${formatValue(Y[i])}`;
+    title = (i:any) => `${formatDate(X[i])}\n${formatValue(Y[i])}`;
   } else if (title !== null) {
     const T = d3.map(data, title);
-    title = (i) => T[i];
+    title = (i:any) => T[i];
   }
 
   // Group the index by year, in reverse input order. (Assuming that the input is
   // chronological, this will show years in reverse chronological order.)
   const years = d3.groups(I, (i) => X[i].getUTCFullYear()).reverse();
 
-  function pathMonth(t) {
+  function pathMonth(t:any) {
     const d = Math.max(0, Math.min(weekDays, countDay(t.getUTCDay())));
     const w = timeWeek.count(d3.utcYear(t), t);
     return `${
@@ -111,7 +111,7 @@ export function Calendar(
     .attr("height", cellSize - 1)
     .attr("x", (i) => timeWeek.count(d3.utcYear(X[i]), X[i]) * cellSize + 0.5)
     .attr("y", (i) => countDay(X[i].getUTCDay()) * cellSize + 0.5)
-    .attr("fill", (i) => (Y[i] > 0 ? color(Y[i]) : "#EEF2F3"));
+    .attr("fill", (i) => (Y[i] > 0 ? color(Y[i]) as any : "#EEF2F3"));
 
   if (title) cell.append("title").text(title);
 
@@ -122,7 +122,7 @@ export function Calendar(
     .join("g");
 
   month
-    .filter((d, i) => i)
+    .filter((d, i:any) => i)
     .append("path")
     .attr("fill", "none")
     .attr("stroke", "#fff")
@@ -138,5 +138,5 @@ export function Calendar(
     .attr("y", -5)
     .text(formatMonth);
 
-  return Object.assign(svg.node(), { scales: { color } });
+  return Object.assign(svg.node() as any, { scales: { color } });
 }

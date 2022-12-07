@@ -1,10 +1,10 @@
 import * as d3 from "d3";
 
 export function LineChart(
-  data,
+  data:any,
   {
-    x = ([x]) => x, // given d in data, returns the (temporal) x-value
-    y = ([, y]) => y, // given d in data, returns the (quantitative) y-value
+    x = ([x]:any) => x, // given d in data, returns the (temporal) x-value
+    y = ([, y]:any) => y, // given d in data, returns the (quantitative) y-value
     defined, // for gaps in data
     curve = d3.curveLinear, // method of interpolation between points
     marginTop = 20, // top margin, in pixels
@@ -12,7 +12,7 @@ export function LineChart(
     marginBottom = 30, // bottom margin, in pixels
     marginLeft = 40, // left margin, in pixels
     width = 640, // outer width, in pixels
-    height = 300, // outer height, in pixels
+    height = 280, // outer height, in pixels
     xType = d3.scaleUtc, // the x-scale type
     xDomain, // [xmin, xmax]
     xRange = [marginLeft, width - marginRight], // [left, right]
@@ -29,13 +29,13 @@ export function LineChart(
     areaColor = "none", // area fill under line
     areaOpacity = 0.6,
     showCircle = false,
-  } = {}
+  }:any
 ) {
   // Compute values.
-  const X = d3.map(data, x);
-  const Y = d3.map(data, y);
+  const X = d3.map(data, x) as any;
+  const Y = d3.map(data, y) as any;
   const I = d3.range(X.length);
-  if (defined === undefined) defined = (d, i) => !isNaN(X[i]) && !isNaN(Y[i]);
+  if (defined === undefined) defined = (_:any, i:any) => !isNaN(X[i]) && !isNaN(Y[i]);
   const D = d3.map(data, defined);
 
   // Compute default domains.
@@ -54,17 +54,17 @@ export function LineChart(
   const area = d3
     .area()
     .curve(curve)
-    .x((i) => xScale(X[i]))
+    .x((i:any) => xScale(X[i]))
     .y0(yScale(0))
-    .y1((i) => yScale(Y[i]));
+    .y1((i:any) => yScale(Y[i]));
 
   // Construct a line generator.
   const line = d3
     .line()
-    .defined((i) => D[i])
+    .defined((i:any) => D[i] as any)
     .curve(curve)
-    .x((i) => xScale(X[i]))
-    .y((i) => yScale(Y[i]));
+    .x((i:any) => xScale(X[i]))
+    .y((i:any) => yScale(Y[i]));
 
   const svg = d3
     .create("svg")
@@ -84,7 +84,7 @@ export function LineChart(
     .attr("fill", areaColor)
     .attr("fill-opacity", areaOpacity)
     .attr("style", "stroke-width: 0;")
-    .attr("d", area(I));
+    .attr("d", area(I as any));
 
   svg
     .append("g")
@@ -116,7 +116,7 @@ export function LineChart(
     .attr("stroke-linecap", strokeLinecap)
     .attr("stroke-linejoin", strokeLinejoin)
     .attr("stroke-opacity", strokeOpacity)
-    .attr("d", line(I));
+    .attr("d", line(I as any));
 
   return svg.node();
 }

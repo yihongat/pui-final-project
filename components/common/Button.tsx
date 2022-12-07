@@ -6,6 +6,10 @@ import {
 import classNames from "classnames";
 import Link from "next/link";
 
+const COLORMAP = {
+  orange: "bg-[#E08857] hover:bg-[#E9915F]",
+  twitter: "bg-[#1DA1F3] hover:bg-[#42b0f4]",
+};
 interface ButtonProps
   extends PropsWithChildren<
     DetailedHTMLProps<
@@ -13,7 +17,8 @@ interface ButtonProps
       HTMLButtonElement
     >
   > {
-  buttonType: "primary" | "secondary";
+  buttonType: "primary" | "secondary" | "tertiary";
+  overrideBg?: "orange" | "twitter";
   href?: string;
 }
 
@@ -21,6 +26,7 @@ export const Button = ({
   buttonType,
   children,
   href,
+  overrideBg,
   ...props
 }: ButtonProps) => {
   return href ? (
@@ -33,11 +39,18 @@ export const Button = ({
           }
         }}
         className={classNames(
-          "rounded-lg bg-primary text-white font-medium py-3 px-8 text-2xl",
+          "rounded-lg text-white text-base font-medium py-2 px-4",
           {
-            "!bg-white !text-primary border-2 border-primary":
+            "!text-primaryBlack border-[1px] border-secondaryGrey hover:border-primaryGrey":
               buttonType === "secondary",
           },
+          `${
+            overrideBg
+              ? COLORMAP[overrideBg]
+              : buttonType === "primary"
+              ? "bg-primary hover:bg-primaryHover"
+              : "bg-white hover:bg-white"
+          }`,
           props.className
         )}
       >
@@ -53,11 +66,18 @@ export const Button = ({
         }
       }}
       className={classNames(
-        "rounded-lg bg-primary text-white font-medium py-3 px-8 text-2xl",
+        "rounded-lg text-white text-base font-medium py-2 px-4",
         {
-          "!bg-white !text-primary border-2 border-primary":
+          "!text-primaryBlack border-[1px] border-secondaryGrey hover:border-primaryGrey":
             buttonType === "secondary",
         },
+        `${
+          overrideBg
+            ? COLORMAP[overrideBg]
+            : buttonType === "primary"
+            ? "bg-primary hover:bg-primaryHover"
+            : "bg-white hover:bg-white"
+        }`,
         props.className
       )}
     >

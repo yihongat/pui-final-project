@@ -48,7 +48,10 @@ const InstructionCarousel = () => {
             className="basis-10 cursor-pointer flex items-center rounded-lg p-2 hover:bg-secondary"
             onClick={() => setCurrentIndex((ind) => ind - 1)}
           >
-            <Image src={ArrowLeft} alt="" />
+            <Image
+              src={ArrowLeft}
+              alt="Button for previous element in carousel"
+            />
           </div>
         ) : (
           <div className="basis-10 pt-[20%]"></div>
@@ -59,13 +62,13 @@ const InstructionCarousel = () => {
             className="basis-10 cursor-pointer flex items-center rounded-lg p-2 hover:bg-secondary"
             onClick={() => setCurrentIndex((ind) => ind + 1)}
           >
-            <Image src={ArrowRight} alt="" />
+            <Image src={ArrowRight} alt="Button for next element in carousel" />
           </div>
         ) : (
           <div className="basis-10 pt-[20%]"></div>
         )}
       </div>
-      <div className="text-xl font-semibold my-4 text-center h-16">
+      <div className="text-xl text-primaryBlack font-semibold my-4 text-center h-16 w-10/12 mx-auto">
         {INSTRUCTIONS[currentIndex].text}
       </div>
     </div>
