@@ -138,7 +138,7 @@ const ShareView = () => {
                           margin: `0 calc(${fontDisplayRatio} * 1vh) 0 0`,
                           display: "inline",
                         }}
-                        className="text-primaryGrey"
+                        className="text-primaryBlack"
                       >
                         {
                           Object.keys(getVideosWatchedByCreator(watchHistory))
