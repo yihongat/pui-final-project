@@ -55,7 +55,7 @@ const Analysis: NextPage = ({ query }: any) => {
         new Date(2022, 0, 1),
         new Date(2022, 11, 31)
       );
-      console.log("PPP",parsedData)
+      console.log("PPP", parsedData);
       setWatchHistory(parsedData);
 
       const creators = getVideosWatchedByCreator(parsedData);
@@ -103,8 +103,13 @@ const Analysis: NextPage = ({ query }: any) => {
           </div>
         )}
         <div className="block lg:hidden">
-          {VIEWS.map((v,i) => (
-            <div key={v} className={classNames("min-h-[70vh]", {"hidden lg:flex": i === 5})}>
+          {VIEWS.map((v, i) => (
+            <div
+              key={v}
+              className={classNames("min-h-[70vh]", {
+                "hidden lg:flex": i === 5,
+              })}
+            >
               {VIEWS_TO_COMPONENT[v]}
             </div>
           ))}
@@ -142,10 +147,9 @@ const Analysis: NextPage = ({ query }: any) => {
 };
 
 Analysis.getInitialProps = async (ctx: NextPageContext) => {
-  return ({
-    query: ctx.query
-  })
-}
-
+  return {
+    query: ctx.query,
+  };
+};
 
 export default Analysis;

@@ -1,10 +1,10 @@
 import * as d3 from "d3";
 
 export function LineChart(
-  data:any,
+  data: any,
   {
-    x = ([x]:any) => x, // given d in data, returns the (temporal) x-value
-    y = ([, y]:any) => y, // given d in data, returns the (quantitative) y-value
+    x = ([x]: any) => x, // given d in data, returns the (temporal) x-value
+    y = ([, y]: any) => y, // given d in data, returns the (quantitative) y-value
     defined, // for gaps in data
     curve = d3.curveLinear, // method of interpolation between points
     marginTop = 20, // top margin, in pixels
@@ -29,13 +29,14 @@ export function LineChart(
     areaColor = "none", // area fill under line
     areaOpacity = 0.6,
     showCircle = false,
-  }:any
+  }: any
 ) {
   // Compute values.
   const X = d3.map(data, x) as any;
   const Y = d3.map(data, y) as any;
   const I = d3.range(X.length);
-  if (defined === undefined) defined = (_:any, i:any) => !isNaN(X[i]) && !isNaN(Y[i]);
+  if (defined === undefined)
+    defined = (_: any, i: any) => !isNaN(X[i]) && !isNaN(Y[i]);
   const D = d3.map(data, defined);
 
   // Compute default domains.
@@ -54,17 +55,17 @@ export function LineChart(
   const area = d3
     .area()
     .curve(curve)
-    .x((i:any) => xScale(X[i]))
+    .x((i: any) => xScale(X[i]))
     .y0(yScale(0))
-    .y1((i:any) => yScale(Y[i]));
+    .y1((i: any) => yScale(Y[i]));
 
   // Construct a line generator.
   const line = d3
     .line()
-    .defined((i:any) => D[i] as any)
+    .defined((i: any) => D[i] as any)
     .curve(curve)
-    .x((i:any) => xScale(X[i]))
-    .y((i:any) => yScale(Y[i]));
+    .x((i: any) => xScale(X[i]))
+    .y((i: any) => yScale(Y[i]));
 
   const svg = d3
     .create("svg")

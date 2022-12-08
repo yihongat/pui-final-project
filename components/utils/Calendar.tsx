@@ -5,26 +5,27 @@ import * as d3 from "d3";
 export function Calendar(
   data: any,
   {
-    x = ([x]:any) => x, // given d in data, returns the (temporal) x-value
-    y = ([, y]:any) => y, // given d in data, returns the (quantitative) y-value
+    x = ([x]: any) => x, // given d in data, returns the (temporal) x-value
+    y = ([, y]: any) => y, // given d in data, returns the (quantitative) y-value
     title, // given d in data, returns the title text
     width = 928, // width of the chart, in pixels
     cellSize = 17, // width and height of an individual day, in pixels
     weekday = "monday", // either: weekday, sunday, or monday
-    formatDay = (i:number) => "SMTWTFS"[i], // given a day number in [0, 6], the day-of-week label
+    formatDay = (i: number) => "SMTWTFS"[i], // given a day number in [0, 6], the day-of-week label
     formatMonth = "%b", // format specifier string for months (above the chart)
     yFormat, // format specifier string for values (in the title)
     colors = d3.interpolateReds,
-    margin = 20
-  }:any
+    margin = 20,
+  }: any
 ) {
-  console.log(data)
+  console.log(data);
   // Compute values.
   const X = d3.map(data, x) as any;
   const Y = d3.map(data, y) as any;
   const I = d3.range(X.length);
 
-  const countDay = weekday === "sunday" ? (i:number) => i : (i:number) => (i + 6) % 7;
+  const countDay =
+    weekday === "sunday" ? (i: number) => i : (i: number) => (i + 6) % 7;
   const timeWeek = weekday === "sunday" ? d3.utcSunday : d3.utcMonday;
   const weekDays = weekday === "weekday" ? 5 : 7;
   const height = cellSize * (weekDays + 2);
@@ -41,17 +42,17 @@ export function Calendar(
   if (title === undefined) {
     const formatDate = d3.utcFormat("%B %-d, %Y");
     const formatValue = color.tickFormat(100, yFormat);
-    title = (i:any) => `${formatDate(X[i])}\n${formatValue(Y[i])}`;
+    title = (i: any) => `${formatDate(X[i])}\n${formatValue(Y[i])}`;
   } else if (title !== null) {
     const T = d3.map(data, title);
-    title = (i:any) => T[i];
+    title = (i: any) => T[i];
   }
 
   // Group the index by year, in reverse input order. (Assuming that the input is
   // chronological, this will show years in reverse chronological order.)
   const years = d3.groups(I, (i) => X[i].getUTCFullYear()).reverse();
 
-  function pathMonth(t:any) {
+  function pathMonth(t: any) {
     const d = Math.max(0, Math.min(weekDays, countDay(t.getUTCDay())));
     const w = timeWeek.count(d3.utcYear(t), t);
     return `${
@@ -113,7 +114,7 @@ export function Calendar(
     .attr("height", cellSize - 1)
     .attr("x", (i) => timeWeek.count(d3.utcYear(X[i]), X[i]) * cellSize + 0.5)
     .attr("y", (i) => countDay(X[i].getUTCDay()) * cellSize + 0.5)
-    .attr("fill", (i) => (Y[i] > 0 ? color(Y[i]) as any : "#EEF2F3"));
+    .attr("fill", (i) => (Y[i] > 0 ? (color(Y[i]) as any) : "#EEF2F3"));
 
   if (title) cell.append("title").text(title);
 
@@ -124,7 +125,7 @@ export function Calendar(
     .join("g");
 
   month
-    .filter((d, i:any) => i)
+    .filter((d, i: any) => i)
     .append("path")
     .attr("fill", "none")
     .attr("stroke", "#fff")
