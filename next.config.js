@@ -1,18 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  i18n: {
-    locales: ["en"],
-    defaultLocale: "en",
-  },
+  basePath: '/pui-final-project',
   reactStrictMode: true,
   swcMinify: true,
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
         hostname: "yt3.ggpht.com",
-        port: "",
-        pathname: "/**",
       },
     ],
   },
