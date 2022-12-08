@@ -4,6 +4,7 @@ import {
   VideoMetadata,
   VideoUploader,
 } from "../common/DataContext/DataContext";
+import { API_DOMAIN } from "./globals";
 
 interface InitialVideoMetadata {
   activityControls: string[];
@@ -138,7 +139,7 @@ export const getDetailedCreatorData = async (
   try {
     const creatorData = await (
       await fetch(
-        `/api/channels/list?id=${getIdsFromCreatorList(creators).join(",")}`
+        `${API_DOMAIN}/api/channels/list?id=${getIdsFromCreatorList(creators).join(",")}`
       )
     ).json();
     const creatorIdToDataMap: { [k: string]: any } = {};
