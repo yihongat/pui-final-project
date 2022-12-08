@@ -93,7 +93,7 @@ const Upload: NextPage = () => {
         <meta property="og:image" content={`${DOMAIN}/landing.png`} />
       </TitleHead>
       <PageTransition mobileOnly>
-        <div className="flex flex-col w-full h-full items-center">
+        <div className="flex flex-col w-full h-full items-center pb-12">
           <div className="w-10/12 max-w-[720px] relative pb-4">
             <Button buttonType="secondary" href="/" className="relative">
               Back
