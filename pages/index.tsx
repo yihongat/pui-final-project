@@ -24,15 +24,6 @@ const Home: NextPage = () => {
         <meta property="og:image" content={`${DOMAIN}/landing.png`} />
       </TitleHead>
       <Landing />
-      <footer className="w-full flex justify-center absolute bottom-12">
-        <span className={classNames("flex w-32 h-8 relative")}>
-          {/* <Image
-            src="/images/odyssey_logo.svg"
-            alt="Odyssey Logo"
-            layout="fill"
-          /> */}
-        </span>
-      </footer>
       <div className="-z-50 absolute w-full top-0 h-full overflow-hidden opacity-80">
         <PageTransition
           delay={0.1}
