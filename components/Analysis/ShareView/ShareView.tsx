@@ -165,7 +165,7 @@ const ShareView = () => {
                         <div className="relative w-full h-full">
                           <Image
                             src={topCreators[0]?.imageUrl.url}
-                            alt={topCreators[0]?.name}
+                            alt={topCreators[0]?.name || "Your top creator"}
                             layout="fill"
                             className="rounded-full overflow-hidden"
                           />
@@ -182,7 +182,9 @@ const ShareView = () => {
                           <div className="relative w-full h-full">
                             <Image
                               src={topCreators[1]?.imageUrl.url}
-                              alt={topCreators[1]?.name}
+                              alt={
+                                topCreators[1]?.name || "Your 2nd top creator"
+                              }
                               layout="fill"
                               className="rounded-full overflow-hidden"
                             />
@@ -198,7 +200,9 @@ const ShareView = () => {
                           <div className="relative w-full h-full">
                             <Image
                               src={topCreators[2]?.imageUrl.url}
-                              alt={topCreators[2]?.name}
+                              alt={
+                                topCreators[2]?.name || "Your 3rd top creator"
+                              }
                               layout="fill"
                               className="rounded-full overflow-hidden"
                             />
@@ -272,7 +276,7 @@ const ShareView = () => {
                       >
                         <Image
                           src={YearInReviewLogo}
-                          alt="Logo"
+                          alt="Year In Review Logo"
                           layout="fill"
                           objectFit="contain"
                         />

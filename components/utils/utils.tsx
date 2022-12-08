@@ -139,7 +139,9 @@ export const getDetailedCreatorData = async (
   try {
     const creatorData = await (
       await fetch(
-        `${API_DOMAIN}/api/channels/list?id=${getIdsFromCreatorList(creators).join(",")}`
+        `${API_DOMAIN}/api/channels/list?id=${getIdsFromCreatorList(
+          creators
+        ).join(",")}`
       )
     ).json();
     const creatorIdToDataMap: { [k: string]: any } = {};

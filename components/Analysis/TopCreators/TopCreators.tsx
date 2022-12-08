@@ -47,7 +47,7 @@ const TopCreators = () => {
                 <div className="h-[50%] w-[50%] aspect-square left-[20%] top-0 rounded-full overflow-hidden border-[12px] border-tertiary relative">
                   <Image
                     src={topCreators[0]?.imageUrl.url}
-                    alt={topCreators[0]?.name}
+                    alt={topCreators[0]?.name || "Your top creator"}
                     layout="fill"
                   />
                 </div>
@@ -55,14 +55,14 @@ const TopCreators = () => {
                   <div className="h-[80%] w-[40%]  aspect-square rounded-full overflow-hidden border-[12px] border-tertiary relative">
                     <Image
                       src={topCreators[1]?.imageUrl.url}
-                      alt={topCreators[1]?.name}
+                      alt={topCreators[1]?.name || "Your 2nd top creator"}
                       layout="fill"
                     />
                   </div>
                   <div className="h-[60%] w-[30%] aspect-square rounded-full overflow-hidden border-[12px] border-tertiary relative">
                     <Image
                       src={topCreators[2]?.imageUrl.url}
-                      alt={topCreators[2]?.name}
+                      alt={topCreators[2]?.name || "Your 3rd top creator"}
                       layout="fill"
                     />
                   </div>

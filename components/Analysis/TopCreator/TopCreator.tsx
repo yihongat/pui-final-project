@@ -45,7 +45,7 @@ const TopCreator = () => {
           >
             <Image
               src={topCreators[0]?.imageUrl.url}
-              alt={topCreators[0]?.name}
+              alt={topCreators[0]?.name || "Your top creator"}
               layout="fill"
             />
           </PageTransition>
