@@ -1,6 +1,6 @@
 import { GetServerSideProps, NextPage, NextPageContext } from "next";
 import Image from "next/image";
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import classNames from "classnames";
 import GeneralStats from "../../components/Analysis/GeneralStats/GeneralStats";
 import ArrowLeft from "../../public/images/arrow-left.svg";
@@ -42,12 +42,6 @@ const VIEWS = [
   "yearInVideos",
   "share",
 ];
-
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  return {
-    props: { query },
-  };
-};
 
 const Analysis: NextPage = ({ query }: any) => {
   const [currentView, setCurrentView] = useState(Number(query.page ?? 0));
@@ -145,5 +139,12 @@ const Analysis: NextPage = ({ query }: any) => {
     </div>
   );
 };
+
+Analysis.getInitialProps = async (ctx: NextPageContext) => {
+  return ({
+    query: ctx.query
+  })
+}
+
 
 export default Analysis;
