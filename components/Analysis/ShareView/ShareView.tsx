@@ -323,18 +323,6 @@ const ShareView = () => {
                 Don't forget to share your favorites this year with friends
                 and family!`}
               </p>
-              <p>
-                Enjoyed this project? Consider supporting me by buying a coffee
-                or following me on Twitter!
-              </p>
-              <div className="flex gap-2 mt-4 md:gap-4 flex-col md:flex-row">
-                <Button buttonType="primary" overrideBg="orange">
-                  Buy Me a Coffee
-                </Button>
-                <Button buttonType="primary" overrideBg="twitter">
-                  Follow on Twitter
-                </Button>
-              </div>
             </div>
           </PageTransition>
         </div>
