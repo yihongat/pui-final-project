@@ -26,12 +26,15 @@ const GeneralStats = () => {
             </PageTransition>
             <PageTransition delay={2}>
               <h2>
-                <span className="text-[54px] mr-2 md:text-[100px] md:mr-4 lg:text-[200px] tracking-[-.05em] leading-tight text-primary lg:mr-6">
+                {/* <span className="text-[54px] mr-2 md:text-[100px] md:mr-4 lg:text-[200px] tracking-[-.05em] leading-tight text-primary lg:mr-6 hidden lg:inline">
                   <AnimatedNumber
                     duration={3000}
                     stepPrecision={0}
                     value={watchHistory ? watchHistory.length : 0}
                   />
+                </span> */}
+                <span className="text-[54px] mr-2 md:text-[100px] md:mr-4 lg:text-[200px] tracking-[-.05em] leading-tight text-primary lg:mr-6 inline">
+                  {watchHistory ? watchHistory.length : 0}
                 </span>{" "}
                 videos
               </h2>
@@ -39,7 +42,7 @@ const GeneralStats = () => {
             <PageTransition delay={3}>
               <h2>
                 from{" "}
-                <span className="text-primaryGrey">
+                {/* <span className="text-primaryGrey hidden lg:inline">
                   <AnimatedNumber
                     duration={5000}
                     stepPrecision={0}
@@ -50,6 +53,12 @@ const GeneralStats = () => {
                         : 0
                     }
                   />
+                </span> */}
+                <span className="text-primaryGrey inline">
+                  {watchHistory
+                    ? Object.keys(getVideosWatchedByCreator(watchHistory))
+                        .length
+                    : 0}
                 </span>{" "}
                 different creators
               </h2>

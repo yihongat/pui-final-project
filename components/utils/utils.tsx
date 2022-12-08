@@ -16,9 +16,12 @@ interface InitialVideoMetadata {
   titleUrl: string;
 }
 
+const addLeadingZero = (n:number) => ('0' + String(n)).slice(-2)
+
 export const preprocessWatchHistoryData = (
   watchHistory: InitialVideoMetadata[]
 ) => {
+  console.log("parse history", "2022-12-07T08:14:52.319Z", new Date("2022-12-07T08:14:52.319Z"))
   return watchHistory.map((video) => ({
     ...video,
     time: new Date(video.time),
@@ -82,10 +85,12 @@ export const getVideosWatchedByDay = (
 
   if (start && end) {
     const iterateDate = start;
+    console.log("iterate",iterateDate)
     while (iterateDate.getTime() <= end.getTime()) {
-      const dateString = `${
-        iterateDate.getMonth() + 1
-      }-${iterateDate.getDate()}-${iterateDate.getFullYear()}`;
+      const dateString = `${iterateDate.getFullYear()}-${
+        addLeadingZero(iterateDate.getMonth() + 1)
+      }-${addLeadingZero(iterateDate.getDate())}`;
+      
       videosWatchedByDay[dateString] = 0;
       iterateDate.setDate(iterateDate.getDate() + 1);
     }
@@ -93,9 +98,9 @@ export const getVideosWatchedByDay = (
 
   watchHistory.forEach((video) => {
     if (video.subtitles) {
-      const dateString = `${
-        video.time.getMonth() + 1
-      }-${video.time.getDate()}-${video.time.getFullYear()}`;
+      const dateString = `${video.time.getFullYear()}-${
+        addLeadingZero(video.time.getMonth() + 1)
+      }-${addLeadingZero(video.time.getDate())}`;
       if (videosWatchedByDay[dateString]) {
         videosWatchedByDay[dateString] += 1;
       } else {

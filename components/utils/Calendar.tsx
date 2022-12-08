@@ -15,8 +15,10 @@ export function Calendar(
     formatMonth = "%b", // format specifier string for months (above the chart)
     yFormat, // format specifier string for values (in the title)
     colors = d3.interpolateReds,
+    margin = 20
   }:any
 ) {
+  console.log(data)
   // Compute values.
   const X = d3.map(data, x) as any;
   const Y = d3.map(data, y) as any;
@@ -63,9 +65,9 @@ export function Calendar(
 
   const svg = d3
     .create("svg")
-    .attr("width", width)
+    .attr("width", width + margin)
     .attr("height", height * years.length)
-    .attr("viewBox", [0, 0, width, height * years.length])
+    .attr("viewBox", [0, 0, width + margin, height * years.length])
     .attr("style", "max-width: 100%; height: auto; height: intrinsic;")
     .attr("font-family", "sans-serif")
     .attr("font-size", 10);

@@ -47,7 +47,7 @@ export const PageTransition = ({
         };
 
   const mobileVariants = {
-    hidden: { opacity: 0, x: 0, y: 50 },
+    hidden: { opacity: 1, x: 0, y: 0 },
     enter: {
       opacity: 1,
       x: 0,

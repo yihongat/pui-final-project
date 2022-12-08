@@ -55,6 +55,7 @@ const Analysis: NextPage = ({ query }: any) => {
         new Date(2022, 0, 1),
         new Date(2022, 11, 31)
       );
+      console.log("PPP",parsedData)
       setWatchHistory(parsedData);
 
       const creators = getVideosWatchedByCreator(parsedData);
@@ -102,14 +103,14 @@ const Analysis: NextPage = ({ query }: any) => {
           </div>
         )}
         <div className="block lg:hidden">
-          {VIEWS.map((v) => (
-            <div key={v} className="min-h-[70vh]">
+          {VIEWS.map((v,i) => (
+            <div key={v} className={classNames("min-h-[70vh]", {"hidden lg:flex": i === 5})}>
               {VIEWS_TO_COMPONENT[v]}
             </div>
           ))}
         </div>
       </AnimatePresence>
-      <div className="flex items-center w-full justify-center gap-2 absolute bottom-8">
+      <div className="hidden items-center w-full justify-center gap-2 absolute bottom-8 lg:flex">
         <div
           className="cursor-pointer flex items-center rounded-lg p-1 w-12"
           onClick={() => {

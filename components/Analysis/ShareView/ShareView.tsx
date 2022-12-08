@@ -28,34 +28,44 @@ const ShareView = () => {
     window.addEventListener("resize", handleResize);
   }, []);
 
-  useEffect(() => {
-    const generateUrl = async () => {
-      if (toDownloadImage.current) {
-        const dataUrl = await htmlToImage.toPng(toDownloadImage.current, {
-          canvasWidth: 800,
-          canvasHeight: 1600,
-          cacheBust: true,
-          includeQueryParams: true,
-        });
-        setShareImageSrc(dataUrl);
-      }
-    };
-    setTimeout(() => generateUrl(), 1000);
-  }, [toDownloadImage]);
-
   const downloadImage = async () => {
-    const link = document.createElement("a");
-    link.download = "youtuberecap.png";
-    if (shareImageSrc) {
-      link.href = shareImageSrc;
-      link.click();
-    } else if (toDownloadImage.current) {
+    if (toDownloadImage.current) {
+      await htmlToImage.toPng(toDownloadImage.current, {
+        canvasWidth: 800,
+        canvasHeight: 1600,
+        cacheBust: true,
+        includeQueryParams: true,
+      });
       const dataUrl = await htmlToImage.toPng(toDownloadImage.current, {
         canvasWidth: 800,
         canvasHeight: 1600,
         cacheBust: true,
         includeQueryParams: true,
       });
+      const link = document.createElement("a");
+      link.download = "recap.png";
+      link.href = dataUrl;
+      link.click();
+    }
+  };
+
+  const openImage = async () => {
+    if (toDownloadImage.current) {
+      await htmlToImage.toPng(toDownloadImage.current, {
+        canvasWidth: 800,
+        canvasHeight: 1600,
+        cacheBust: true,
+        includeQueryParams: true,
+      });
+      const dataUrl = await htmlToImage.toPng(toDownloadImage.current, {
+        canvasWidth: 800,
+        canvasHeight: 1600,
+        cacheBust: true,
+        includeQueryParams: true,
+      });
+      const link = document.createElement("a");
+      setShareImageSrc(dataUrl);
+      link.download = "recap.png";
       link.href = dataUrl;
       link.click();
     }
@@ -76,7 +86,7 @@ const ShareView = () => {
             >
               <PageTransition
                 delay={1.5}
-                className="h-[55vh] w-full relative my-4 mb-8 drop-shadow-[0px_0px_30px_rgba(0,0,0,0.25)] pointer-events-none"
+                className="h-[56vh] w-[28vh] mx-auto relative my-4 mb-8 drop-shadow-[0px_0px_30px_rgba(0,0,0,0.25)]"
                 mobileOnly
               >
                 {shareImageSrc && (
@@ -88,10 +98,10 @@ const ShareView = () => {
                     className="rounded-lg !min-w-fit !w-auto z-10 absolute lg:hidden"
                   />
                 )}
-                <div className="overflow-hidden aspect-[1/2] h-full rounded-lg mx-auto">
+                <div className="overflow-hidden aspect-[1/2] h-full w-auto rounded-lg mx-auto pointer-events-none">
                   <div
                     ref={toDownloadImage}
-                    className="relative aspect-[1/2] h-full mx-auto bg-white"
+                    className="relative aspect-[1/2] rounded-lg h-full w-auto mx-auto bg-white"
                     style={{
                       letterSpacing: "-0.04em",
                     }}
@@ -139,61 +149,60 @@ const ShareView = () => {
                     </h1>
                     <div
                       style={{
-                        top: `calc(${fontDisplayRatio} * 8vh)`,
+                        top: `calc(${fontDisplayRatio} * 18vh)`,
                         left: `0`,
                       }}
-                      className="relative w-full"
+                      className="relative w-full flex flex-col items-center"
                       id="urlContainer"
                     >
                       <div
                         style={{
                           width: `calc(${fontDisplayRatio} * 24vh)`,
-                          left: `calc(${fontDisplayRatio} * 13vh)`,
-                          top: `calc(${fontDisplayRatio} * 10vh)`,
-                          // borderWidth: `calc(${fontDisplayRatio} * 1.5vh)`,
+                          height: `calc(${fontDisplayRatio} * 24vh)`,
                         }}
-                        className=" absolute aspect-square rounded-full overflow-hidden border-tertiary z-5"
+                        className="mx-auto aspect-square rounded-full overflow-hidden border-tertiary z-5"
                       >
                         <div className="relative w-full h-full">
                           <Image
                             src={topCreators[0]?.imageUrl.url}
                             alt={topCreators[0]?.name}
                             layout="fill"
+                            className="rounded-full overflow-hidden"
                           />
                         </div>
                       </div>
-                      <div
-                        style={{
-                          width: `calc(${fontDisplayRatio} * 16vh)`,
-                          left: `calc(${fontDisplayRatio} * 6vh)`,
-                          top: `calc(${fontDisplayRatio} * 32vh)`,
-                          // borderWidth: `calc(${fontDisplayRatio} * 1.5vh)`,
-                        }}
-                        className=" absolute aspect-square rounded-full overflow-hidden border-tertiary z-5"
-                      >
-                        <div className="relative w-full h-full">
-                          <Image
-                            src={topCreators[1]?.imageUrl.url}
-                            alt={topCreators[1]?.name}
-                            layout="fill"
-                          />
+                      <div className="flex justify-between w-10/12">
+                        <div
+                          style={{
+                            width: `calc(${fontDisplayRatio} * 16vh)`,
+                            height: `calc(${fontDisplayRatio} * 16vh)`,
+                          }}
+                          className=" aspect-square rounded-full overflow-hidden border-tertiary z-5"
+                        >
+                          <div className="relative w-full h-full">
+                            <Image
+                              src={topCreators[1]?.imageUrl.url}
+                              alt={topCreators[1]?.name}
+                              layout="fill"
+                              className="rounded-full overflow-hidden"
+                            />
+                          </div>
                         </div>
-                      </div>
-                      <div
-                        style={{
-                          width: `calc(${fontDisplayRatio} * 14vh)`,
-                          left: `calc(${fontDisplayRatio} * 28vh)`,
-                          top: `calc(${fontDisplayRatio} * 32vh)`,
-                          // borderWidth: `calc(${fontDisplayRatio} * 1.5vh)`,
-                        }}
-                        className=" absolute aspect-square rounded-full overflow-hidden border-tertiary z-5"
-                      >
-                        <div className="relative w-full h-full">
-                          <Image
-                            src={topCreators[2]?.imageUrl.url}
-                            alt={topCreators[2]?.name}
-                            layout="fill"
-                          />
+                        <div
+                          style={{
+                            width: `calc(${fontDisplayRatio} * 14vh)`,
+                            height: `calc(${fontDisplayRatio} * 14vh)`,
+                          }}
+                          className=" aspect-square rounded-full overflow-hidden border-tertiary z-5"
+                        >
+                          <div className="relative w-full h-full">
+                            <Image
+                              src={topCreators[2]?.imageUrl.url}
+                              alt={topCreators[2]?.name}
+                              layout="fill"
+                              className="rounded-full overflow-hidden"
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -284,7 +293,18 @@ const ShareView = () => {
               </PageTransition>
             </Perspective>
             <PageTransition delay={2} className="flex gap-4">
-              <Button buttonType="primary" onClick={() => downloadImage()}>
+              <Button
+                className="hidden lg:block"
+                buttonType="primary"
+                onClick={() => downloadImage()}
+              >
+                Share Image
+              </Button>
+              <Button
+                className=" lg:hidden"
+                buttonType="primary"
+                onClick={() => openImage()}
+              >
                 Share Image
               </Button>
             </PageTransition>
@@ -303,7 +323,7 @@ const ShareView = () => {
                 Enjoyed this project? Consider supporting me by buying a coffee
                 or following me on Twitter!
               </p>
-              <div className="flex gap-4 mt-4">
+              <div className="flex gap-2 mt-4 md:gap-4 flex-col md:flex-row">
                 <Button buttonType="primary" overrideBg="orange">
                   Buy Me a Coffee
                 </Button>

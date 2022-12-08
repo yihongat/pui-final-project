@@ -29,16 +29,16 @@ const YearInVideos = () => {
     <>
       <main
         className={classNames(
-          "w-full flex flex-col justify-center items-center pb-12 lg:pb-8 pt-2"
+          "w-full flex-col justify-center items-center pb-12 lg:pb-8 pt-2"
         )}
       >
-        <div className="w-12/12 lg:w-8/12 ax-w-[1000px] flex flex-col text-center items-center gap-8 md:gap-16">
+        <div className="w-12/12 lg:w-8/12 mx-auto w-[1000px] flex flex-col text-center items-center gap-8 md:gap-16">
           <PageTransition className="w-10/12" delay={1}>
             <h2>
               Your year in <span className="text-primary mr-6">videos</span>
             </h2>
           </PageTransition>
-          <PageTransition className="w-11/12" delay={2} mobileOnly>
+          <PageTransition className="w-11/12 relative" delay={2} mobileOnly>
             <div className="tracking-normal" ref={calendar}></div>
           </PageTransition>
           <PageTransition className="w-10/12" delay={2}>

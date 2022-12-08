@@ -25,7 +25,6 @@ const TopCreators = () => {
             {topCreators.map((creator, i) => (
               <PageTransition className="flex flex-col mt-2" key={i}>
                 <h4>{creator.name}</h4>
-                <p>4 videos</p>
               </PageTransition>
             ))}
           </div>
@@ -45,26 +44,28 @@ const TopCreators = () => {
               className="relative basis-5/12 grow-0 shrink-0 pt-8"
             >
               <div className="relative w-full h-full">
-                <div className="w-[50%] absolute aspect-square left-[20%] top-0 rounded-full overflow-hidden border-[12px] border-tertiary">
+                <div className="h-[50%] w-[50%] aspect-square left-[20%] top-0 rounded-full overflow-hidden border-[12px] border-tertiary relative">
                   <Image
                     src={topCreators[0]?.imageUrl.url}
                     alt={topCreators[0]?.name}
                     layout="fill"
                   />
                 </div>
-                <div className="w-[40%] absolute aspect-square left-0 top-[50%] rounded-full overflow-hidden border-[12px] border-tertiary">
-                  <Image
-                    src={topCreators[1]?.imageUrl.url}
-                    alt={topCreators[1]?.name}
-                    layout="fill"
-                  />
-                </div>
-                <div className="w-[30%] absolute aspect-square left-[60%] top-[50%] rounded-full overflow-hidden border-[12px] border-tertiary">
-                  <Image
-                    src={topCreators[2]?.imageUrl.url}
-                    alt={topCreators[2]?.name}
-                    layout="fill"
-                  />
+                <div className="flex justify-between h-[50%]">
+                  <div className="h-[80%] w-[40%]  aspect-square rounded-full overflow-hidden border-[12px] border-tertiary relative">
+                    <Image
+                      src={topCreators[1]?.imageUrl.url}
+                      alt={topCreators[1]?.name}
+                      layout="fill"
+                    />
+                  </div>
+                  <div className="h-[60%] w-[30%] aspect-square rounded-full overflow-hidden border-[12px] border-tertiary relative">
+                    <Image
+                      src={topCreators[2]?.imageUrl.url}
+                      alt={topCreators[2]?.name}
+                      layout="fill"
+                    />
+                  </div>
                 </div>
               </div>
             </PageTransition>
