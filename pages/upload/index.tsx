@@ -47,7 +47,6 @@ const Upload: NextPage = () => {
             (creator) => creator[1]
           );
           const creatorData = await getDetailedCreatorData(topCreatorDetails);
-          console.log(creatorData);
           setTopCreators(creatorData);
           setFileName(uploadedFileName.name);
           router.push("/analysis");

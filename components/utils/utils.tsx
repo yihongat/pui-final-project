@@ -22,11 +22,6 @@ const addLeadingZero = (n: number) => ("0" + String(n)).slice(-2);
 export const preprocessWatchHistoryData = (
   watchHistory: InitialVideoMetadata[]
 ) => {
-  console.log(
-    "parse history",
-    "2022-12-07T08:14:52.319Z",
-    new Date("2022-12-07T08:14:52.319Z")
-  );
   return watchHistory.map((video) => ({
     ...video,
     time: new Date(video.time),
@@ -90,7 +85,6 @@ export const getVideosWatchedByDay = (
 
   if (start && end) {
     const iterateDate = start;
-    console.log("iterate", iterateDate);
     while (iterateDate.getTime() <= end.getTime()) {
       const dateString = `${iterateDate.getFullYear()}-${addLeadingZero(
         iterateDate.getMonth() + 1

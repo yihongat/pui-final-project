@@ -18,7 +18,6 @@ export function Calendar(
     margin = 20,
   }: any
 ) {
-  console.log(data);
   // Compute values.
   const X = d3.map(data, x) as any;
   const Y = d3.map(data, y) as any;

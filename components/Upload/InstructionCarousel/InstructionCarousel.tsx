@@ -44,7 +44,7 @@ const InstructionCarousel = () => {
       <div></div>
       <div className="flex gap-1">
         {currentIndex > 0 ? (
-          <div
+          <button
             className="basis-10 cursor-pointer flex items-center rounded-lg p-2 hover:bg-secondary"
             onClick={() => setCurrentIndex((ind) => ind - 1)}
           >
@@ -52,18 +52,18 @@ const InstructionCarousel = () => {
               src={ArrowLeft}
               alt="Button for previous element in carousel"
             />
-          </div>
+          </button>
         ) : (
           <div className="basis-10 pt-[20%]"></div>
         )}
         <InstructionCard {...INSTRUCTIONS[currentIndex]} />
         {currentIndex < INSTRUCTIONS.length - 1 ? (
-          <div
+          <button
             className="basis-10 cursor-pointer flex items-center rounded-lg p-2 hover:bg-secondary"
             onClick={() => setCurrentIndex((ind) => ind + 1)}
           >
             <Image src={ArrowRight} alt="Button for next element in carousel" />
-          </div>
+          </button>
         ) : (
           <div className="basis-10 pt-[20%]"></div>
         )}

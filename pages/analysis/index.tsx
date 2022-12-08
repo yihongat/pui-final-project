@@ -55,7 +55,6 @@ const Analysis: NextPage = ({ query }: any) => {
         new Date(2022, 0, 1),
         new Date(2022, 11, 31)
       );
-      console.log("PPP", parsedData);
       setWatchHistory(parsedData);
 
       const creators = getVideosWatchedByCreator(parsedData);
@@ -116,7 +115,7 @@ const Analysis: NextPage = ({ query }: any) => {
         </div>
       </AnimatePresence>
       <div className="hidden items-center w-full justify-center gap-2 absolute bottom-8 lg:flex">
-        <div
+        <button
           className="cursor-pointer flex items-center rounded-lg p-1 w-12"
           onClick={() => {
             if (currentView === 0) {
@@ -126,12 +125,12 @@ const Analysis: NextPage = ({ query }: any) => {
             }
           }}
         >
-          <Image src={ArrowLeft} alt="Back" />
-        </div>
+          <Image src={ArrowLeft} alt="Previous" />
+        </button>
         <div className="w-8 font-medium">{`${currentView + 1} / ${
           VIEWS.length
         }`}</div>
-        <div
+        <button
           className="cursor-pointer flex items-center rounded-lg p-1 w-12"
           onClick={() => {
             setCurrentView((prevView) =>
@@ -140,7 +139,7 @@ const Analysis: NextPage = ({ query }: any) => {
           }}
         >
           <Image src={ArrowRight} alt="Next" />
-        </div>
+        </button>
       </div>
     </div>
   );
