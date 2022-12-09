@@ -1,3 +1,5 @@
+Link to deployed website: [yihongat.github.io/pui-final-project](https://yihongat.github.io/pui-final-project)
+
 ## Getting Started
 
 First, run the development server:

@@ -19,6 +19,7 @@ interface InitialVideoMetadata {
 
 const addLeadingZero = (n: number) => ("0" + String(n)).slice(-2);
 
+// Convert time property into a date object
 export const preprocessWatchHistoryData = (
   watchHistory: InitialVideoMetadata[]
 ) => {
@@ -28,6 +29,7 @@ export const preprocessWatchHistoryData = (
   }));
 };
 
+// Get filters in the specified time range
 export const getVideosForTimeFrame = (
   watchHistory: VideoMetadata[],
   start: Date,
@@ -42,6 +44,7 @@ export const getVideosForTimeFrame = (
   return filteredVideos;
 };
 
+// Generate a map of number of videos per creator
 export const getVideosWatchedByCreator = (watchHistory: VideoMetadata[]) => {
   const videosWatchedByCreator: { [k: string]: CreatorBase } = {};
 
@@ -76,6 +79,7 @@ export const getNumberOfAdsWatched = (watchHistory: VideoMetadata[]) => {
   return adCount;
 };
 
+// Generate a map of number of videos per day
 export const getVideosWatchedByDay = (
   watchHistory: VideoMetadata[],
   start?: Date,
@@ -127,6 +131,7 @@ export const getIdsFromCreatorList = (creators: CreatorBase[]) => {
   return creators.map((creator) => getIdFromCreatorUrl(creator.url));
 };
 
+// Calls the YouTube API to get creator data
 export const getDetailedCreatorData = async (
   creators: CreatorBase[]
 ): Promise<DetailedCreator[]> => {
@@ -178,6 +183,7 @@ const DAY_OF_WEEK = [
   "saturday",
 ].map((day) => capitalizeFirstLetter(day));
 
+// Generate a map of number of videos per day of week
 export const getVideosWatchedByDayOfWeek = (
   watchHistory: VideoMetadata[],
   start?: Date,
@@ -243,6 +249,7 @@ const daysInMonth = (month: number, year: number) => {
   return new Date(year, month, 0).getDate();
 };
 
+// Generate a map of number of videos per month
 export const getVideosWatchedByMonth = (watchHistory: VideoMetadata[]) => {
   const videosWatchedByMonth: { [k: string]: number } = {};
 
@@ -269,6 +276,7 @@ export const getVideosWatchedByMonth = (watchHistory: VideoMetadata[]) => {
 
 const HOURS = Array.from(Array(24).keys());
 
+// Generate a map of number of videos per hour
 export const getVideosWatchedByHour = (watchHistory: VideoMetadata[]) => {
   const videosWatchedByHour: { [k: string]: number } = {};
 

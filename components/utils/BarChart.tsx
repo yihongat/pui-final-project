@@ -1,5 +1,7 @@
 import * as d3 from "d3";
 
+// Copyright 2021 Observable, Inc.
+// Adapted from code from d3 on Observable
 export const BarChart = (
   data: any,
   {

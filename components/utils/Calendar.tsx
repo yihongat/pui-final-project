@@ -1,7 +1,7 @@
 import * as d3 from "d3";
+
 // Copyright 2021 Observable, Inc.
-// Released under the ISC license.
-// https://observablehq.com/@d3/calendar-view
+// Adapted from code from d3 on Observable
 export function Calendar(
   data: any,
   {
